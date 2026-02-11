@@ -84,6 +84,21 @@ res = res[!res$method %in% c("Lasso", "GSMR_noheidi", "GSMR_v2", "MRMix"),]
 output_file = file.path(getwd(), paste0(ex, "_MR_comparison_results_updated.txt"))
 write.table(res, file = output_file, row.names = FALSE, col.names = TRUE, quote = TRUE, sep = "\t")
 
+#MRlap
+
+library(MRlap)
+risk_factors <- "<your_path>/risk_factors.txt"
+aging_traits <- "<your_path>/aging_traits"
+
+# Running the MRlap analysis
+A = MRlap(exposure = risk_factors,
+          exposure_name = "risk_factors",
+          outcome = aging_traits,
+          outcome_name = "aging_traits",
+          ld = "<your_path>/eur_w_ld_chr",
+          hm3 = "<your_path>/w_hm3.snplist")
+
+
 # 2.make plot
 setwd("<YOUR_PATH>/multi_MR/")
 files <- list.files(pattern = "_MR_comparison_results_updated.txt")
